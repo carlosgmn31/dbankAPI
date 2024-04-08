@@ -1,6 +1,8 @@
 package com.dbank.api.modelo.transferencia;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +86,19 @@ public class TransferenciaService {
         cliente.setSaldo(cliente.getSaldo() + transferenciaDTO.getValor());
         Transferencia transferencia = save(transferenciaDTO.build());
         return transferencia;
-}
+}   
+    public List<Transferencia> extrato(String cpf,LocalDateTime inicio, LocalDateTime fim)throws IllegalArgumentException{
+        Cliente cliente = clienteRepository.findByCpf(cpf);
+        if (cliente == null){
+            throw new IllegalArgumentException("Cliente não cadastrado!");
+        }
+        if (!cliente.isAtiva()){
+            throw new IllegalArgumentException("Sua conta está inativa!");
+        }
+        if(inicio.isAfter(fim)){
+            throw new IllegalArgumentException("Você está selecionando um periodo invalido!");
+        }
+        return this.transferenciaRepository.findByCpfOrigemAndDataTranferencia(cpf, inicio, fim);
+    }
 
 }
