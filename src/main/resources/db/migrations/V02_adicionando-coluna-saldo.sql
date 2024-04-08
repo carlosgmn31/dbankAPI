@@ -1,0 +1,2 @@
+ALTER TABLE clientes
+ADD saldo DECIMAL(10, 2) DEFAULT 0.00;

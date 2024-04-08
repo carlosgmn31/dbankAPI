@@ -2,10 +2,13 @@ package com.dbank.api.cliente;
 
 import java.time.LocalDate;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.dbank.api.modelo.cliente.Cliente;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,23 +18,33 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor 
 @AllArgsConstructor
-public class ClienteRequest {
+public class ClienteDTO {
     
-    @NotBlank(message = "Nome não pode ser nulo / em branco")
+    @Size(min = 3,message = "nome deve ter ao menos 3 caracteres")
     private String nome;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
-    @NotBlank(message = "cpf não pode ser nulo / em branco")
+    
+    @CPF(message = "CPF invalido!")
+    @NotBlank(message = "Data de Nascimento não pode ser nulo / em branco")
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private String cpf;
 
+    @NotBlank(message = "Agencia não pode ser nulo / em branco")
+    private String agencia;
+
+    @NotBlank(message = "Conta não pode ser nulo / em branco")
+    private String conta;
+    
     public Cliente build() {
 
        return Cliente.builder()
            .nome(nome)
            .dataNascimento(dataNascimento)
            .cpf(cpf)
+           .agencia(agencia)
+           .conta(conta)
            .build();
     }
 
