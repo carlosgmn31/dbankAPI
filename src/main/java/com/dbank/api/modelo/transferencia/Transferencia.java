@@ -3,8 +3,6 @@ package com.dbank.api.modelo.transferencia;
 
 import java.time.LocalDateTime;
 
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Schema;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

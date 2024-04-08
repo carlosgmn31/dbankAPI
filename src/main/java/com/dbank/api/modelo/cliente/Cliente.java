@@ -3,9 +3,9 @@ package com.dbank.api.modelo.cliente;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
+
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
