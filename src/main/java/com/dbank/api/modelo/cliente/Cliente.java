@@ -1,7 +1,10 @@
 package com.dbank.api.modelo.cliente;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -33,13 +36,12 @@ public class Cliente {
     private String cpf;
 
     @Column
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
-    @CreatedDate
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @CreationTimestamp()
     @Column(name = "data_criacao")
-    private LocalDate dataCriacao;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataCriacao;
 
     @Column
     @Builder.Default

@@ -1,7 +1,9 @@
 package com.dbank.api.cliente;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.dbank.api.modelo.cliente.Cliente;
@@ -23,7 +25,6 @@ public class ClienteDTO {
     @Size(min = 3,message = "nome deve ter ao menos 3 caracteres")
     private String nome;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
     
     @CPF(message = "CPF invalido!")
@@ -41,6 +42,7 @@ public class ClienteDTO {
 
        return Cliente.builder()
            .nome(nome)
+           .dataCriacao(LocalDateTime.now())
            .dataNascimento(dataNascimento)
            .cpf(cpf)
            .agencia(agencia)

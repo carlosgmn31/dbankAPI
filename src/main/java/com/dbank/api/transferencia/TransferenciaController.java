@@ -2,6 +2,7 @@ package com.dbank.api.transferencia;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,12 @@ public class TransferenciaController {
     @Autowired
     private TransferenciaService transferenciaService;
 
-    //extratos
+    @Operation(
+            summary = "Serviço responsável por retornar o extrato por periodo ao cliente, relatorio de transaçõe",
+            description = "Este endpoint permite ao cliente obter um relatório das transações realizadas em sua conta dentro de um determinado período de tempo. " +
+                    "Ao enviar uma requisição HTTP GET para este endpoint com as datas de início e fim do " +
+                    "período desejado, o sistema processará a solicitação e retornará um extrato contendo as transações realizadas dentro desse intervalo de tempo."
+    )
     @GetMapping("")
     public List<Transferencia> extratoPorPeriodo(@Valid @RequestBody TransferenciaExtratoDTO request ) {
         return transferenciaService.extrato(request.getCpf_origem(), request.getInicoData(), request.getFimData());

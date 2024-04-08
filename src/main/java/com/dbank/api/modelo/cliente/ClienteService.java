@@ -19,13 +19,19 @@ public class ClienteService {
     }
 
     public Cliente pesquisaCliente(String cpf){
-
-        return clienteRepository.findByCpf(cpf);
+        Cliente cliente = clienteRepository.findByCpf(cpf);
+        if(cliente == null){
+            throw  new IllegalArgumentException("Cliente não cadastrado");
+        }
+        return (cliente);
     }
 
     @Transactional
     public void alterarConta(String cpf){
         Cliente cliente = clienteRepository.findByCpf(cpf);
+        if(cliente == null){
+            throw  new IllegalArgumentException("Cliente não cadastrado");
+        }
         if (cliente.isAtiva() == true){
             cliente.setAtiva(false);
         }
@@ -38,6 +44,12 @@ public class ClienteService {
     @Transactional
     public void alterarLimiteDiario(String cpf,double limite) throws IllegalArgumentException{
         Cliente cliente = clienteRepository.findByCpf(cpf);
+            if (cliente.isAtiva() == false){
+                throw new IllegalArgumentException("não pode alterar o limte estando inativo");
+            }
+            if(cliente == null){
+                throw  new IllegalArgumentException("Cliente não cadastrado");
+            }
             if(limite < 100.00){
                 throw new IllegalArgumentException("não pode deixar o limite abaixo de 100");
             }
